@@ -186,9 +186,31 @@
         padding: 35px 20px;
       }
     }
+
+    .home-btn {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 9999;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      backdrop-filter: blur(8px);
+      transition: background 0.2s ease;
+    }
+
+    .home-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
   </style>
 </head>
 <body>
+
+  <a href="/" class="home-btn">Home</a>
 
   <div class="petals" id="petalsContainer"></div>
 
