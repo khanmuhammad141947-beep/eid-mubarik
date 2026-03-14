@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Eid Mubarak – Pure Gold</title>
+<style>
+  body{margin:0;height:100vh;background:#1c1100;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:'Georgia',serif;color:#ffe082;}
+  .card{width:88%;max-width:560px;background:rgba(25,15,0,0.9);border:3px solid transparent;background-clip:padding-box;border-radius:30px;padding:65px 40px;text-align:center;position:relative;box-shadow:0 35px 85px #000c;}
+  .card::before{content:'';position:absolute;inset:-4px;background:linear-gradient(45deg,#ffd700,#ffeb3b,#ffd700);border-radius:34px;z-index:-1;animation:goldRotate 8s linear infinite;}
+  @keyframes goldRotate{100%{transform:rotate(360deg)}}
+  h1{font-size:5.1rem;color:#ffeb3b;text-shadow:0 0 30px #ffd700;margin:0;}
+  .msg{font-size:1.85rem;color:#ffe082;margin:35px 0 55px;font-weight:300;}
+  .names{font-size:1.95rem;margin:50px 0;color:#ffecb3;}
+  .heart{color:#ff8f00;font-size:2.5rem;margin:0 15px;}
+  .from{margin-top:60px;font-size:1.5rem;color:#ffca28;font-style:italic;}
+  @media(max-width:560px){h1{font-size:3.8rem;}.card{padding:45px 25px;}}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Eid Mubarak</h1>
+  <div class="msg">Wishing you a day as golden as your heart</div>
+  <div class="names">To: <span style="color:#ffe082;font-weight:700;">{{ toname }}</span> <span class="heart">❤</span> From: <span style="color:#ffeb3b;font-weight:700;">{{ fromname }}</span></div>
+  <div class="from">Forever grateful for you</div>
+</div>
+</body>
+</html>

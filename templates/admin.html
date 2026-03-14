@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - Eid Cards</title>
+
+<style>
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:white;
+    margin:0;
+    padding:20px;
+}
+
+h2{
+    text-align:center;
+    color:black;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:white;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th, td{
+    padding:12px 15px;
+    text-align:left;
+    border-bottom:1px solid #eee;
+    font-size:0.95em;
+}
+
+th{
+    background:#f0f0f0;
+    color:black;
+}
+
+tr:hover{
+    background:#f5f5f5;
+}
+
+a{
+    color:#007bff;
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+</style>
+</head>
+<body>
+
+<h2>Admin Panel - Eid Cards Data</h2>
+
+<table>
+<thead>
+<tr>
+    <th>#</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Card No</th>
+</tr>
+</thead>
+<tbody>
+{% for item in data %}
+<tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ item.fromname }}</td>
+    <td>{{ item.toname }}</td>
+    <td>{{ item.card_no }}</td>
+</tr>
+{% else %}
+<tr>
+    <td colspan="4" style="text-align:center;color:#999;">No data found</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+</body>
+</html>

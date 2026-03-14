@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eid Card Link Generator</title>
+
+<style>
+
+body{
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+background:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+margin:0;
+}
+
+.box{
+background:white;
+padding:40px;
+border-radius:15px;
+box-shadow:0 6px 20px rgba(0,0,0,0.08);
+text-align:center;
+max-width:420px;
+width:90%;
+margin-bottom:80px;
+}
+
+input{
+padding:12px;
+width:80%;
+border:2px solid #ddd;
+border-radius:8px;
+outline:none;
+margin-top:10px;
+transition:0.3s;
+}
+
+input:focus{
+border-color:#007bff;
+}
+
+button{
+padding:12px 25px;
+background:#007bff;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin-top:15px;
+font-weight:bold;
+transition:0.3s;
+}
+
+button:hover{
+background:#0056b3;
+}
+
+#result{
+margin-top:20px;
+padding:10px;
+background:#f4f4f4;
+border-radius:5px;
+word-break:break-all;
+font-size:0.95em;
+color:#333;
+}
+
+#copyBtn{
+background:#4CAF50;
+display:none;
+}
+
+#copyBtn:hover{
+background:#45a049;
+}
+
+#copiedMessage{
+color:#007bff;
+font-weight:bold;
+margin-top:10px;
+display:none;
+}
+
+.card-img{
+width:100px;
+margin-top:15px;
+cursor:pointer;
+border:3px solid transparent;
+border-radius:10px;
+transition:0.3s;
+}
+
+.card-img:hover{
+transform:scale(1.05);
+}
+
+.selected{
+border:3px solid #ff4da6;
+}
+
+/* Footer */
+footer{
+width:100%;
+background:white;
+color:#555;
+padding:20px 0;
+text-align:center;
+position:fixed;
+bottom:0;
+left:0;
+border-top:1px solid #eee;
+font-size:0.9em;
+}
+
+footer a{
+color:#ff4da6;
+margin:0 10px;
+text-decoration:none;
+font-weight:bold;
+}
+
+footer a:hover{
+text-decoration:underline;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>🌙 Eid Card Link</h2>
+<p>Enter names then select card</p>
+
+<input type="text" id="fromname" placeholder="Enter your name">
+<br>
+
+<input type="text" id="toname" placeholder="Enter recipient name">
+<br>
+
+<input type="hidden" id="card_no">
+
+<div>
+
+<img src="/static/img/eid_card_1.png" class="card-img" onclick="selectCard(1,this)">
+<img src="/static/img/eid_card_2.png" class="card-img" onclick="selectCard(2,this)">
+<img src="/static/img/eid_card_3.png" class="card-img" onclick="selectCard(3,this)">
+
+</div>
+
+<button onclick="createLink()">Generate Link</button>
+
+<div id="result">Link will appear here...</div>
+
+<button id="copyBtn" onclick="copyLink()">Copy Link</button>
+
+<p id="copiedMessage">Link Copied ✅</p>
+
+</div>
+
+<!-- Footer -->
+<footer>
+If you also want a similar website, contact us at <strong>0331 5556141</strong>  
+| <a href="https://www.youtube.com/@BantaTech" target="_blank">YouTube</a>  
+| <a href="https://www.instagram.com/bantatech1947" target="_blank">Instagram</a>
+</footer>
+
+<script>
+
+function selectCard(num,element){
+document.getElementById("card_no").value=num;
+let cards=document.querySelectorAll(".card-img");
+cards.forEach(c=>c.classList.remove("selected"))
+element.classList.add("selected")
+}
+
+function createLink(){
+
+let fromname=document.getElementById("fromname").value.trim();
+let toname=document.getElementById("toname").value.trim();
+let card_no=document.getElementById("card_no").value;
+
+if(fromname=="" || toname==""){
+alert("Please enter names")
+return
+}
+
+if(card_no==""){
+alert("Please select a card")
+return
+}
+
+let baseUrl="http://127.0.0.1:5000/eid_card";
+
+let finalUrl=baseUrl+"?fromname="+encodeURIComponent(fromname)+"&toname="+encodeURIComponent(toname)+"&card_no="+card_no;
+
+document.getElementById("result").innerText=finalUrl;
+document.getElementById("copyBtn").style.display="inline-block";
+document.getElementById("copiedMessage").style.display="none";
+
+// Send data to server
+fetch("/save_eid_card",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({fromname, toname, card_no})
+})
+.then(res=>res.json())
+.then(data=>console.log("Server Response:",data))
+.catch(err=>console.log("Server Error:",err))
+}
+
+function copyLink(){
+let url=document.getElementById("result").innerText;
+navigator.clipboard.writeText(url).then(()=>{document.getElementById("copiedMessage").style.display="block"})
+}
+
+</script>
+
+</body>
+</html>

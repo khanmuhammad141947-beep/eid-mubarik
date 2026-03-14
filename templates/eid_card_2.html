@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eid Mubarak - Luxury Card</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at 30% 20%, #1a0d2b 0%, #0f001a 100%);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Falling petals */
+    .petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .petal {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #ff3366, #ff99cc);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      opacity: 0.8;
+      animation: fall linear infinite;
+      box-shadow: 0 0 15px rgba(255, 51, 102, 0.6);
+    }
+
+    @keyframes fall {
+      0%   { transform: translateY(-100vh) rotate(0deg); }
+      100% { transform: translateY(120vh) rotate(1080deg); }
+    }
+
+    .card-container {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 580px;
+      background: rgba(20, 10, 40, 0.65);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 
+        0 25px 60px rgba(0,0,0,0.6),
+        inset 0 0 40px rgba(180, 100, 255, 0.08);
+      padding: 50px 35px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transform: scale(0.92);
+      opacity: 0;
+      animation: cardPop 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+    }
+
+    @keyframes cardPop {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(45deg, #ff3366, #aa55ff, #33ccff, #ff3366);
+      border-radius: 28px;
+      z-index: -2;
+      animation: borderGlow 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes borderGlow {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 4px;
+      background: radial-gradient(circle at 30% 30%, rgba(180,100,255,0.15), transparent 60%);
+      border-radius: 24px;
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: 4.2rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ff9a9e, #fad0c4, #fad0c4, #a18cd1, #f6d5f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.3em;
+      letter-spacing: 2px;
+      text-shadow: 0 0 30px rgba(255, 140, 180, 0.6);
+    }
+
+    .subtitle {
+      font-size: 1.6rem;
+      color: #e0c3ff;
+      margin: 20px 0 40px;
+      font-weight: 300;
+      letter-spacing: 1.5px;
+    }
+
+    .names {
+      margin: 45px 0 25px;
+      font-size: 1.5rem;
+      color: #ffd1dc;
+      font-weight: 400;
+    }
+
+    .from {
+      color: #c9a8ff;
+      font-style: italic;
+      margin-top: 50px;
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+
+    .heart {
+      color: #ff4d6d;
+      font-size: 1.6rem;
+      margin: 0 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 580px) {
+      .card {
+        padding: 40px 25px;
+        margin: 15px;
+      }
+      
+      h1 {
+        font-size: 3.4rem;
+      }
+      
+      .subtitle {
+        font-size: 1.4rem;
+      }
+      
+      .names {
+        font-size: 1.35rem;
+      }
+      
+      .from {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 2.9rem;
+      }
+      
+      .subtitle {
+        font-size: 1.25rem;
+      }
+      
+      .card {
+        padding: 35px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="petals" id="petalsContainer"></div>
+
+  <div class="card-container">
+    <div class="card">
+      <h1>Eid Mubarak</h1>
+      <div class="subtitle">May this Eid bring endless joy, peace & blessings</div>
+      
+      <div class="names">
+        To: <span style="color:#ffccdd;font-weight:600;">{{toname}}</span>
+        <span class="heart">♥</span>
+        From: <span style="color:#d4aaff;font-weight:600;">{{fromname}}</span>
+      </div>
+
+      <div class="from">
+        With love & duas
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function createPetal() {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      
+      // Random properties
+      const size = Math.random() * 18 + 12;
+      petal.style.width = size + 'px';
+      petal.style.height = size + 'px';
+      
+      petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.animationDuration = Math.random() * 8 + 10 + 's';
+      petal.style.animationDelay = Math.random() * 5 + 's';
+      petal.style.opacity = Math.random() * 0.5 + 0.5;
+      
+      // Random pink/purple shades
+      const hue = Math.random() * 60 + 300; // 300–360 = pink-purple
+      petal.style.background = `hsl(${hue}, 85%, 65%)`;
+      
+      document.getElementById('petalsContainer').appendChild(petal);
+      
+      // Remove after animation
+      setTimeout(() => {
+        petal.remove();
+      }, 18000);
+    }
+
+    // Create petals continuously
+    setInterval(createPetal, 320);
+
+    // Initial burst
+    for(let i = 0; i < 18; i++) {
+      setTimeout(createPetal, i * 180);
+    }
+  </script>
+</body>
+</html>
